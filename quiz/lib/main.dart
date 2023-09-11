@@ -19,10 +19,28 @@ class App extends StatelessWidget {
           style: TextStyle(color: Colors.black),
         ),
       ),
-      body: Column(
-        children: [
-          Container(),
-        ],
+      body: Center(
+        child: SizedBox(
+          width: 400,
+          height: 600,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text("a"),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text("a"),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text("a"),
+              ),
+            ],
+          ),
+        ),
       ),
     ));
   }
