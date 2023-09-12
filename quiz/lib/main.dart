@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz/main_page.dart';
 
 void main() {
   runApp(const App());
@@ -9,39 +10,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text(
-          "내가 만드는 퀴즈",
-          textAlign: TextAlign.justify,
-          style: TextStyle(color: Colors.black),
-        ),
-      ),
-      body: Center(
-        child: SizedBox(
-          width: 400,
-          height: 600,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text("a"),
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text("a"),
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text("a"),
-              ),
-            ],
-          ),
-        ),
-      ),
-    ));
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MainPage(),
+    );
   }
 }
