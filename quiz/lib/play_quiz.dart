@@ -17,8 +17,9 @@ class PlayQuiz extends StatefulWidget {
 
 class _PlayQuizState extends State<PlayQuiz> {
   var localList;
-  var buttons;
   var selectValueList = [];
+  var correctCount = 0;
+  var wrongCount = 0;
 
   selectValueListShuffle() {
     try {
@@ -35,6 +36,30 @@ class _PlayQuizState extends State<PlayQuiz> {
     return selectValueList;
   }
 
+  void showResultDialog(bool isCorrect) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(isCorrect ? "정답입니다!" : "오답입니다!"),
+          content: Text(isCorrect ? "정답을 선택했습니다." : "오답을 선택했습니다."),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("확인"),
+              onPressed: () {
+                setState(() {
+                  localList.removeAt(0);
+                  selectValueListShuffle();
+                });
+                Navigator.of(context).pop(); // 다이얼로그 닫음
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -44,68 +69,6 @@ class _PlayQuizState extends State<PlayQuiz> {
 
   @override
   Widget build(BuildContext context) {
-    buttons = [
-      ElevatedButton(
-        onPressed: () {
-          if (selectValueList[0] == localList[0]["correct"]) {
-            print("정답입니다");
-          } else {
-            print("오답입니다");
-          }
-          setState(() {
-            selectValueList.shuffle();
-            localList.removeAt(0);
-          });
-        },
-        // child: Text(localList[0]["correct"]),
-        child: Text(selectValueList[0]),
-      ),
-      ElevatedButton(
-        onPressed: () {
-          if (selectValueList[1] == localList[0]["correct"]) {
-            print("정답입니다");
-          } else {
-            print("오답입니다");
-          }
-          setState(() {
-            selectValueList.shuffle();
-            localList.removeAt(0);
-          });
-        },
-        // child: Text(localList[0]["wrong1"]),
-        child: Text(selectValueList[1]),
-      ),
-      ElevatedButton(
-        onPressed: () {
-          if (selectValueList[2] == localList[0]["correct"]) {
-            print("정답입니다");
-          } else {
-            print("오답입니다");
-          }
-          setState(() {
-            selectValueList.shuffle();
-            localList.removeAt(0);
-          });
-        },
-        // child: Text(localList[0]["wrong2"]),
-        child: Text(selectValueList[2]),
-      ),
-      ElevatedButton(
-        onPressed: () {
-          if (selectValueList[3] == localList[0]["correct"]) {
-            print("정답입니다");
-          } else {
-            print("오답입니다");
-          }
-          setState(() {
-            selectValueList.shuffle();
-            localList.removeAt(0);
-          });
-        },
-        // child: Text(localList[0]["wrong3"]),
-        child: Text(selectValueList[3]),
-      )
-    ];
     return Scaffold(
       backgroundColor: Colors.lightGreenAccent,
       appBar: AppBar(actions: [
@@ -133,7 +96,74 @@ class _PlayQuizState extends State<PlayQuiz> {
               localList[0]["content"],
               style: const TextStyle(fontSize: 20),
             ),
-            for (ElevatedButton button in buttons) button,
+            ElevatedButton(
+              onPressed: () {
+                if (selectValueList[0] == localList[0]["correct"]) {
+                  print("정답입니다");
+                  correctCount++;
+                } else {
+                  print("오답입니다");
+                  wrongCount++;
+                }
+                setState(() {
+                  localList.removeAt(0);
+                  selectValueListShuffle();
+                });
+              },
+              // child: Text(localList[0]["correct"]),
+              child: Text(selectValueList[0]),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (selectValueList[1] == localList[0]["correct"]) {
+                  print("정답입니다");
+                  correctCount++;
+                } else {
+                  print("오답입니다");
+                  wrongCount++;
+                }
+                setState(() {
+                  localList.removeAt(0);
+                  selectValueListShuffle();
+                });
+              },
+              // child: Text(localList[0]["wrong1"]),
+              child: Text(selectValueList[1]),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (selectValueList[2] == localList[0]["correct"]) {
+                  print("정답입니다");
+                  correctCount++;
+                } else {
+                  print("오답입니다");
+                  wrongCount++;
+                }
+                setState(() {
+                  localList.removeAt(0);
+                  selectValueListShuffle();
+                });
+              },
+              // child: Text(localList[0]["wrong2"]),
+              child: Text(selectValueList[2]),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (selectValueList[3] == localList[0]["correct"]) {
+                  print("정답입니다");
+                  correctCount++;
+                } else {
+                  print("오답입니다");
+                  wrongCount++;
+                }
+                setState(() {
+                  localList.removeAt(0);
+                  selectValueListShuffle();
+                });
+              },
+              // child: Text(localList[0]["wrong3"]),
+              child: Text(selectValueList[3]),
+            ),
           ],
         ),
       ),
