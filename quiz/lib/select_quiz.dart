@@ -139,7 +139,9 @@ class _SelectQuizState extends State<SelectQuiz> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const PlayQuiz(),
+                        builder: (context) => PlayQuiz(
+                          playQuizList: fillterQuizList,
+                        ),
                       ),
                     );
                   },
