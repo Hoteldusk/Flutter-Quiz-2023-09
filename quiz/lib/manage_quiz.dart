@@ -12,6 +12,7 @@ class ManageQuiz extends StatefulWidget {
     this.updateData,
     this.result,
     this.getData,
+    this.deleteData,
   });
 
   final quizList;
@@ -19,6 +20,7 @@ class ManageQuiz extends StatefulWidget {
   final updateData;
   final result;
   final getData;
+  final deleteData;
 
   @override
   State<ManageQuiz> createState() => _ManageQuizState();
@@ -60,6 +62,7 @@ class _ManageQuizState extends State<ManageQuiz> {
                         // listSize: result.size,
                         quizValue: widget.quizList[i],
                         updateData: widget.updateData,
+                        deleteData: widget.deleteData,
 
                         // redirect
                         result: widget.result,

@@ -29,6 +29,7 @@ class _MainPageState extends State<MainPage> {
     } catch (e) {
       print("getData 에러 발생 : $e");
     }
+    return result;
   }
 
   // await firestore.collection('quizData').add({"" : ""});
@@ -68,7 +69,13 @@ class _MainPageState extends State<MainPage> {
   }
 
 // await firestore.collection("quizData").doc().delete();
-  deleteData() async {}
+  deleteData(data) async {
+    try {
+      await firestore.collection("quizData").doc(data).delete();
+    } catch (e) {
+      print("deleteData 에러 발생 : $e");
+    }
+  }
 
   @override
   void initState() {
@@ -154,6 +161,7 @@ class _MainPageState extends State<MainPage> {
                           listSize: result.size,
                           updateData: updateData,
                           getData: getData,
+                          deleteData: deleteData,
                         ),
                       ));
                 },

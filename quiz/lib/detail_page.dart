@@ -13,6 +13,7 @@ class DetailPage extends StatefulWidget {
     this.quizList,
     this.listSize,
     this.getData,
+    this.deleteData,
   });
 
   final quizValue;
@@ -21,6 +22,7 @@ class DetailPage extends StatefulWidget {
   final quizList;
   final listSize;
   final getData;
+  final deleteData;
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -128,33 +130,65 @@ class _DetailPageState extends State<DetailPage> {
                 },
                 decoration: const InputDecoration(hintText: "오답을 입력해주세요"),
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  var id = widget.quizValue.id;
-                  await widget.updateData(
-                    id,
-                    localInputTitle,
-                    localInputContent,
-                    localInputCorrect,
-                    localInputWrong1,
-                    localInputWrong2,
-                    localInputWrong3,
-                  );
-                  // get
-                  // await widget.getData();
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ManageQuiz(
-                          result: widget.result,
-                          getData: widget.getData,
-                          quizList: widget.quizList,
-                          listSize: widget.listSize,
-                          updateData: widget.updateData,
-                        ),
-                      ));
-                },
-                child: const Text("수 정"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    onPressed: () async {
+                      var id = widget.quizValue.id;
+                      await widget.updateData(
+                        id,
+                        localInputTitle,
+                        localInputContent,
+                        localInputCorrect,
+                        localInputWrong1,
+                        localInputWrong2,
+                        localInputWrong3,
+                      );
+                      // get
+                      // await widget.getData();
+                      var result = await widget.getData();
+                      var quizList = result.docs;
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ManageQuiz(
+                              result: result,
+                              getData: widget.getData,
+                              quizList: quizList,
+                              listSize: result.size,
+                              updateData: widget.updateData,
+                              deleteData: widget.deleteData,
+                            ),
+                          ));
+                    },
+                    child: const Text("수 정"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      var id = widget.quizValue.id;
+                      await widget.deleteData(id);
+
+                      var result = await widget.getData();
+                      var quizList = result.docs;
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ManageQuiz(
+                              result: result,
+                              getData: widget.getData,
+                              quizList: quizList,
+                              listSize: result.size,
+                              updateData: widget.updateData,
+                              deleteData: widget.deleteData,
+                            ),
+                          ));
+                    },
+                    child: const Text("삭 제"),
+                  ),
+                ],
               )
             ],
           ),
