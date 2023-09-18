@@ -25,6 +25,7 @@ class _MainPageState extends State<MainPage> {
   getData() async {
     try {
       result = await firestore.collection('quizData').get();
+      print("데이터 불러오기 성공");
     } catch (e) {
       print("getData 에러 발생 : $e");
     }
@@ -148,9 +149,11 @@ class _MainPageState extends State<MainPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ManageQuiz(
+                          result: result,
                           quizList: result.docs,
                           listSize: result.size,
                           updateData: updateData,
+                          getData: getData,
                         ),
                       ));
                 },
