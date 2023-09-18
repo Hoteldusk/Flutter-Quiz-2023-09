@@ -114,6 +114,7 @@ class _MainPageState extends State<MainPage> {
                       MaterialPageRoute(
                         builder: (context) => SelectQuiz(
                           listSize: result.size,
+                          quizList: result.docs,
                         ),
                       ));
                 },
