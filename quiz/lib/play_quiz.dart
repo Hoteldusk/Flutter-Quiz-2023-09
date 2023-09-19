@@ -89,123 +89,150 @@ class _PlayQuizState extends State<PlayQuiz> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightGreenAccent,
-      appBar: AppBar(actions: [
-        IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const MainPage(),
-                ),
-              );
-            },
-            icon: const Icon(Icons.home))
-      ]),
+      appBar: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0.0,
+          title: const Text("모두의 퀴즈"),
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.topRight,
+                  colors: [
+                    Color.fromARGB(192, 135, 213, 255),
+                    Color.fromARGB(255, 242, 252, 254)
+                  ]),
+            ),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MainPage(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.home),
+              color: Colors.blue,
+            )
+          ]),
       // body: Text(widget.playQuizList[0]["title"]),
       body: Container(
-        margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Expanded(
-              flex: 1,
-              child: Center(
-                child: Text(
-                  localList[0]["title"],
-                  style: const TextStyle(
-                      fontSize: 30, fontWeight: FontWeight.bold),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.topRight,
+              colors: [
+                Color.fromARGB(100, 28, 146, 210),
+                Color.fromARGB(100, 242, 252, 254)
+              ]),
+        ),
+        child: Container(
+          margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Center(
+                  child: Text(
+                    localList[0]["title"],
+                    style: const TextStyle(
+                        fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Text(
-                localList[0]["content"],
-                style: const TextStyle(fontSize: 20),
+              Expanded(
+                flex: 2,
+                child: Text(
+                  localList[0]["content"],
+                  style: const TextStyle(fontSize: 20),
+                ),
               ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      if (selectValueList[0] == localList[0]["correct"]) {
-                        showResultDialog(true);
-                      } else {
-                        showResultDialog(false);
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(
-                          double.infinity, 50), // 버튼의 가로 크기를 화면 가로에 맞게 조절
+              Expanded(
+                flex: 2,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    OutlinedButton(
+                      onPressed: () {
+                        if (selectValueList[0] == localList[0]["correct"]) {
+                          showResultDialog(true);
+                        } else {
+                          showResultDialog(false);
+                        }
+                      },
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size(
+                            double.infinity, 50), // 버튼의 가로 크기를 화면 가로에 맞게 조절
+                      ),
+                      // child: Text(localList[0]["correct"]),
+                      child: Text(
+                        selectValueList[0],
+                        style: const TextStyle(fontSize: 20),
+                      ),
                     ),
-                    // child: Text(localList[0]["correct"]),
-                    child: Text(
-                      selectValueList[0],
-                      style: const TextStyle(fontSize: 20),
+                    OutlinedButton(
+                      onPressed: () {
+                        if (selectValueList[1] == localList[0]["correct"]) {
+                          showResultDialog(true);
+                        } else {
+                          showResultDialog(false);
+                        }
+                      },
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size(
+                            double.infinity, 50), // 버튼의 가로 크기를 화면 가로에 맞게 조절
+                      ),
+                      // child: Text(localList[0]["wrong1"]),
+                      child: Text(
+                        selectValueList[1],
+                        style: const TextStyle(fontSize: 20),
+                      ),
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (selectValueList[1] == localList[0]["correct"]) {
-                        showResultDialog(true);
-                      } else {
-                        showResultDialog(false);
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(
-                          double.infinity, 50), // 버튼의 가로 크기를 화면 가로에 맞게 조절
+                    OutlinedButton(
+                      onPressed: () {
+                        if (selectValueList[2] == localList[0]["correct"]) {
+                          showResultDialog(true);
+                        } else {
+                          showResultDialog(false);
+                        }
+                      },
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size(
+                            double.infinity, 50), // 버튼의 가로 크기를 화면 가로에 맞게 조절
+                      ),
+                      // child: Text(localList[0]["wrong2"]),
+                      child: Text(
+                        selectValueList[2],
+                        style: const TextStyle(fontSize: 20),
+                      ),
                     ),
-                    // child: Text(localList[0]["wrong1"]),
-                    child: Text(
-                      selectValueList[1],
-                      style: const TextStyle(fontSize: 20),
+                    OutlinedButton(
+                      onPressed: () {
+                        if (selectValueList[3] == localList[0]["correct"]) {
+                          showResultDialog(true);
+                        } else {
+                          showResultDialog(false);
+                        }
+                      },
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size(
+                            double.infinity, 50), // 버튼의 가로 크기를 화면 가로에 맞게 조절
+                      ),
+                      // child: Text(localList[0]["wrong3"]),
+                      child: Text(
+                        selectValueList[3],
+                        style: const TextStyle(fontSize: 20),
+                      ),
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (selectValueList[2] == localList[0]["correct"]) {
-                        showResultDialog(true);
-                      } else {
-                        showResultDialog(false);
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(
-                          double.infinity, 50), // 버튼의 가로 크기를 화면 가로에 맞게 조절
-                    ),
-                    // child: Text(localList[0]["wrong2"]),
-                    child: Text(
-                      selectValueList[2],
-                      style: const TextStyle(fontSize: 20),
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (selectValueList[3] == localList[0]["correct"]) {
-                        showResultDialog(true);
-                      } else {
-                        showResultDialog(false);
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(
-                          double.infinity, 50), // 버튼의 가로 크기를 화면 가로에 맞게 조절
-                    ),
-                    // child: Text(localList[0]["wrong3"]),
-                    child: Text(
-                      selectValueList[3],
-                      style: const TextStyle(fontSize: 20),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

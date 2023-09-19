@@ -88,90 +88,119 @@ class _SelectQuizState extends State<SelectQuiz> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightGreenAccent,
-      appBar: AppBar(actions: [
-        IconButton(
-            onPressed: () async {
-              if (_focusNode.hasFocus) {
-                _focusNode.unfocus();
-                await Future.delayed(const Duration(milliseconds: 500));
-              }
+      appBar: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0.0,
+          title: const Text("모두의 퀴즈"),
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.topRight,
+                  colors: [
+                    Color.fromARGB(192, 135, 213, 255),
+                    Color.fromARGB(255, 242, 252, 254)
+                  ]),
+            ),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () async {
+                if (_focusNode.hasFocus) {
+                  _focusNode.unfocus();
+                  await Future.delayed(const Duration(milliseconds: 500));
+                }
 
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const MainPage(),
-                ),
-              );
-            },
-            icon: const Icon(Icons.home))
-      ]),
-      body: Center(
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  child: Text(
-                    "등록된 문제수 : ${widget.listSize}",
-                    style: const TextStyle(fontSize: 30),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MainPage(),
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.fromLTRB(0, 100, 0, 0),
-                  child: const Text(
-                    "몇문제를 풀까요?",
-                    style: TextStyle(fontSize: 25),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(150, 0, 150, 0),
-                  child: TextField(
-                    onChanged: (text) {
-                      try {
-                        inputData = int.parse(text);
-                      } catch (e) {
-                        print("입력오류 : $e");
-                      }
-                    },
-                    textAlign: TextAlign.center,
-                    focusNode: _focusNode,
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      if (widget.listSize < inputData || inputData == 0) {
-                        _focusNode.unfocus();
-                        inputData = 0;
-                        return;
-                      }
-
-                      await initFillterIndexList(inputData);
-                      await initFillterQuizList(inputData);
-
-                      _focusNode.unfocus();
-                      await Future.delayed(const Duration(milliseconds: 500));
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PlayQuiz(
-                            playQuizList: fillterQuizList,
-                          ),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      "문제 풀기",
-                      style: TextStyle(fontSize: 20),
+                );
+              },
+              icon: const Icon(Icons.home),
+              color: Colors.blue,
+            )
+          ]),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.topRight,
+              colors: [
+                Color.fromARGB(100, 28, 146, 210),
+                Color.fromARGB(100, 242, 252, 254)
+              ]),
+        ),
+        child: Center(
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Text(
+                      "등록된 문제수 : ${widget.listSize}",
+                      style: const TextStyle(fontSize: 30),
                     ),
                   ),
-                )
-              ],
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(0, 100, 0, 0),
+                    child: const Text(
+                      "몇문제를 풀까요?",
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(150, 0, 150, 0),
+                    child: TextField(
+                      onChanged: (text) {
+                        try {
+                          inputData = int.parse(text);
+                        } catch (e) {
+                          print("입력오류 : $e");
+                        }
+                      },
+                      textAlign: TextAlign.center,
+                      focusNode: _focusNode,
+                    ),
+                  ),
+                  Container(
+                    width: 200,
+                    height: 70,
+                    margin: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                    child: TextButton(
+                      onPressed: () async {
+                        if (widget.listSize < inputData || inputData == 0) {
+                          _focusNode.unfocus();
+                          inputData = 0;
+                          return;
+                        }
+
+                        await initFillterIndexList(inputData);
+                        await initFillterQuizList(inputData);
+
+                        _focusNode.unfocus();
+                        await Future.delayed(const Duration(milliseconds: 500));
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PlayQuiz(
+                              playQuizList: fillterQuizList,
+                            ),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        "문제 풀기",
+                        style: TextStyle(fontSize: 30),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),
