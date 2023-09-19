@@ -21,6 +21,10 @@
 8. `firebase.json` 에서 `"public": "public"` 을 `"public": "build/web"` 으로 수정
 9. `firebase deploy`
 
+## apk 파일 생성
+- `flutter build apk --release --target-platform=android-arm64`
+- `build/app/outputs/apk/relase/app-relase.apk`
+
 ### 빌드시에 Dex 오류 발생하는 경우
  - project / android / app / build.gradle 파일을 찾는다
  - 파일에서 defaultConfig 항목을 찾는다. multiDexEnabled true 추가
