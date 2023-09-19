@@ -48,7 +48,6 @@ google-services.json
 firebase_options.*
 node_modules/
 /.firebase
-.firebaserc.*
 firebase.*
 firebase_app_id_file.*
 
