@@ -21,6 +21,8 @@ class _PlayQuizState extends State<PlayQuiz> {
   var selectValueList = [];
   var correctCount = 0;
   var wrongCount = 0;
+  double progressValue = 0.0;
+  var listLength = 0;
 
   selectValueListShuffle() {
     try {
@@ -53,7 +55,9 @@ class _PlayQuizState extends State<PlayQuiz> {
                 } else if (!isCorrect) {
                   wrongCount++;
                 }
-
+                setState(() {
+                  progressValue += 1.0 / listLength;
+                }); //프로그래스 벨류 증가
                 if (localList.length == 1) {
                   Navigator.push(
                     context,
@@ -83,6 +87,7 @@ class _PlayQuizState extends State<PlayQuiz> {
   void initState() {
     super.initState();
     localList = widget.playQuizList;
+    listLength = localList.length;
     selectValueListShuffle();
   }
 
@@ -151,10 +156,17 @@ class _PlayQuizState extends State<PlayQuiz> {
                   style: const TextStyle(fontSize: 20),
                 ),
               ),
+              // 프로그래스 바
+              SizedBox(
+                height: 5,
+                child: LinearProgressIndicator(
+                  value: progressValue,
+                ),
+              ),
               Expanded(
                 flex: 2,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     OutlinedButton(
                       onPressed: () {
