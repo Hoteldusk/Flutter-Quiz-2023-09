@@ -62,74 +62,84 @@ class _InsertQuizState extends State<InsertQuiz> {
       ]),
       body: Center(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const Text("퀴즈 등록"),
-              TextField(
-                controller: titleController, // 컨트롤러 설정
-                onChanged: (text) {
-                  localInputTitle = text;
-                },
-                decoration: const InputDecoration(hintText: "제목을 입력해주세요"),
-              ),
-              TextField(
-                controller: contentController, // 컨트롤러 설정
-                onChanged: (text) {
-                  localInputContent = text;
-                },
-                maxLines: 12,
-                decoration: const InputDecoration(hintText: "내용을 입력해주세요"),
-              ),
-              TextField(
-                controller: correctController, // 컨트롤러 설정
-                onChanged: (text) {
-                  localInputCorrect = text;
-                },
-                decoration: const InputDecoration(hintText: "정답을 입력해주세요"),
-              ),
-              TextField(
-                controller: wrong1Controller, // 컨트롤러 설정
-                onChanged: (text) {
-                  localInputWrong1 = text;
-                },
-                decoration: const InputDecoration(hintText: "오답을 입력해주세요"),
-              ),
-              TextField(
-                controller: wrong2Controller, // 컨트롤러 설정
-                onChanged: (text) {
-                  localInputWrong2 = text;
-                },
-                decoration: const InputDecoration(hintText: "오답을 입력해주세요"),
-              ),
-              TextField(
-                controller: wrong3Controller, // 컨트롤러 설정
-                onChanged: (text) {
-                  localInputWrong3 = text;
-                },
-                decoration: const InputDecoration(hintText: "오답을 입력해주세요"),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  widget.addData(
-                    localInputTitle,
-                    localInputContent,
-                    localInputCorrect,
-                    localInputWrong1,
-                    localInputWrong2,
-                    localInputWrong3,
-                  );
+          child: Container(
+            margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            child: Column(
+              children: [
+                TextField(
+                  controller: titleController, // 컨트롤러 설정
+                  onChanged: (text) {
+                    localInputTitle = text;
+                  },
+                  decoration: const InputDecoration(hintText: "제목을 입력해주세요"),
+                ),
+                TextField(
+                  controller: contentController, // 컨트롤러 설정
+                  onChanged: (text) {
+                    localInputContent = text;
+                  },
+                  maxLines: 12,
+                  decoration: const InputDecoration(hintText: "내용을 입력해주세요"),
+                ),
+                TextField(
+                  controller: correctController, // 컨트롤러 설정
+                  onChanged: (text) {
+                    localInputCorrect = text;
+                  },
+                  decoration: const InputDecoration(hintText: "정답을 입력해주세요"),
+                ),
+                TextField(
+                  controller: wrong1Controller, // 컨트롤러 설정
+                  onChanged: (text) {
+                    localInputWrong1 = text;
+                  },
+                  decoration: const InputDecoration(hintText: "오답을 입력해주세요"),
+                ),
+                TextField(
+                  controller: wrong2Controller, // 컨트롤러 설정
+                  onChanged: (text) {
+                    localInputWrong2 = text;
+                  },
+                  decoration: const InputDecoration(hintText: "오답을 입력해주세요"),
+                ),
+                TextField(
+                  controller: wrong3Controller, // 컨트롤러 설정
+                  onChanged: (text) {
+                    localInputWrong3 = text;
+                  },
+                  decoration: const InputDecoration(hintText: "오답을 입력해주세요"),
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                  height: 50,
+                  width: 200,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      widget.addData(
+                        localInputTitle,
+                        localInputContent,
+                        localInputCorrect,
+                        localInputWrong1,
+                        localInputWrong2,
+                        localInputWrong3,
+                      );
 
-                  // 버튼을 누를 때 컨트롤러로 입력된 내용을 지우기
-                  titleController.clear();
-                  contentController.clear();
-                  correctController.clear();
-                  wrong1Controller.clear();
-                  wrong2Controller.clear();
-                  wrong3Controller.clear();
-                },
-                child: const Text("등 록"),
-              )
-            ],
+                      // 버튼을 누를 때 컨트롤러로 입력된 내용을 지우기
+                      titleController.clear();
+                      contentController.clear();
+                      correctController.clear();
+                      wrong1Controller.clear();
+                      wrong2Controller.clear();
+                      wrong3Controller.clear();
+                    },
+                    child: const Text(
+                      "등 록",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

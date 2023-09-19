@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:quiz/main_page.dart';
+import 'package:quiz/result_page.dart';
 
 class PlayQuiz extends StatefulWidget {
   const PlayQuiz({
@@ -47,11 +48,20 @@ class _PlayQuizState extends State<PlayQuiz> {
             TextButton(
               child: const Text("확인"),
               onPressed: () {
+                if (isCorrect) {
+                  correctCount++;
+                } else if (!isCorrect) {
+                  wrongCount++;
+                }
+
                 if (localList.length == 1) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const MainPage(),
+                      builder: (context) => ResultPage(
+                        correctCount: correctCount,
+                        wrongCount: wrongCount,
+                      ),
                     ),
                   );
                 } else {
@@ -93,69 +103,107 @@ class _PlayQuizState extends State<PlayQuiz> {
             icon: const Icon(Icons.home))
       ]),
       // body: Text(widget.playQuizList[0]["title"]),
-      body: Center(
+      body: Container(
+        margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text(
-              localList[0]["title"],
-              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            Expanded(
+              flex: 1,
+              child: Center(
+                child: Text(
+                  localList[0]["title"],
+                  style: const TextStyle(
+                      fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+              ),
             ),
-            Text(
-              localList[0]["content"],
-              style: const TextStyle(fontSize: 20),
+            Expanded(
+              flex: 2,
+              child: Text(
+                localList[0]["content"],
+                style: const TextStyle(fontSize: 20),
+              ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                if (selectValueList[0] == localList[0]["correct"]) {
-                  correctCount++;
-                  showResultDialog(true);
-                } else {
-                  wrongCount++;
-                  showResultDialog(false);
-                }
-              },
-              // child: Text(localList[0]["correct"]),
-              child: Text(selectValueList[0]),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (selectValueList[1] == localList[0]["correct"]) {
-                  correctCount++;
-                  showResultDialog(true);
-                } else {
-                  wrongCount++;
-                  showResultDialog(false);
-                }
-              },
-              // child: Text(localList[0]["wrong1"]),
-              child: Text(selectValueList[1]),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (selectValueList[2] == localList[0]["correct"]) {
-                  correctCount++;
-                  showResultDialog(true);
-                } else {
-                  wrongCount++;
-                  showResultDialog(false);
-                }
-              },
-              // child: Text(localList[0]["wrong2"]),
-              child: Text(selectValueList[2]),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (selectValueList[3] == localList[0]["correct"]) {
-                  correctCount++;
-                  showResultDialog(true);
-                } else {
-                  wrongCount++;
-                  showResultDialog(false);
-                }
-              },
-              // child: Text(localList[0]["wrong3"]),
-              child: Text(selectValueList[3]),
+            Expanded(
+              flex: 2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      if (selectValueList[0] == localList[0]["correct"]) {
+                        showResultDialog(true);
+                      } else {
+                        showResultDialog(false);
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(
+                          double.infinity, 50), // 버튼의 가로 크기를 화면 가로에 맞게 조절
+                    ),
+                    // child: Text(localList[0]["correct"]),
+                    child: Text(
+                      selectValueList[0],
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (selectValueList[1] == localList[0]["correct"]) {
+                        showResultDialog(true);
+                      } else {
+                        showResultDialog(false);
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(
+                          double.infinity, 50), // 버튼의 가로 크기를 화면 가로에 맞게 조절
+                    ),
+                    // child: Text(localList[0]["wrong1"]),
+                    child: Text(
+                      selectValueList[1],
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (selectValueList[2] == localList[0]["correct"]) {
+                        showResultDialog(true);
+                      } else {
+                        showResultDialog(false);
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(
+                          double.infinity, 50), // 버튼의 가로 크기를 화면 가로에 맞게 조절
+                    ),
+                    // child: Text(localList[0]["wrong2"]),
+                    child: Text(
+                      selectValueList[2],
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (selectValueList[3] == localList[0]["correct"]) {
+                        showResultDialog(true);
+                      } else {
+                        showResultDialog(false);
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(
+                          double.infinity, 50), // 버튼의 가로 크기를 화면 가로에 맞게 조절
+                    ),
+                    // child: Text(localList[0]["wrong3"]),
+                    child: Text(
+                      selectValueList[3],
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

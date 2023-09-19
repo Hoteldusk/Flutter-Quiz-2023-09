@@ -120,8 +120,9 @@ class _SelectQuizState extends State<SelectQuiz> {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.fromLTRB(120, 0, 120, 0),
+                  padding: const EdgeInsets.fromLTRB(150, 0, 150, 0),
                   child: TextField(
+                    textAlign: TextAlign.center,
                     onChanged: (text) {
                       try {
                         inputData = int.parse(text);
@@ -131,21 +132,27 @@ class _SelectQuizState extends State<SelectQuiz> {
                     },
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (widget.listSize < inputData) return;
-                    await initFillterIndexList(inputData);
-                    await initFillterQuizList(inputData);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PlayQuiz(
-                          playQuizList: fillterQuizList,
+                Container(
+                  margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      if (widget.listSize < inputData || inputData == 0) return;
+                      await initFillterIndexList(inputData);
+                      await initFillterQuizList(inputData);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PlayQuiz(
+                            playQuizList: fillterQuizList,
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  child: const Text("문제 풀기"),
+                      );
+                    },
+                    child: const Text(
+                      "문제 풀기",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
                 )
               ],
             ),

@@ -84,113 +84,128 @@ class _DetailPageState extends State<DetailPage> {
       ]),
       body: Center(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const Text("퀴즈 수정 및 삭제"),
-              TextField(
-                controller: titleController, // 컨트롤러 설정
-                onChanged: (text) {
-                  localInputTitle = text;
-                },
-                decoration: const InputDecoration(hintText: "제목을 입력해주세요"),
-              ),
-              TextField(
-                controller: contentController, // 컨트롤러 설정
-                onChanged: (text) {
-                  localInputContent = text;
-                },
-                maxLines: 12,
-                decoration: const InputDecoration(hintText: "내용을 입력해주세요"),
-              ),
-              TextField(
-                controller: correctController, // 컨트롤러 설정
-                onChanged: (text) {
-                  localInputCorrect = text;
-                },
-                decoration: const InputDecoration(hintText: "정답을 입력해주세요"),
-              ),
-              TextField(
-                controller: wrong1Controller, // 컨트롤러 설정
-                onChanged: (text) {
-                  localInputWrong1 = text;
-                },
-                decoration: const InputDecoration(hintText: "오답을 입력해주세요"),
-              ),
-              TextField(
-                controller: wrong2Controller, // 컨트롤러 설정
-                onChanged: (text) {
-                  localInputWrong2 = text;
-                },
-                decoration: const InputDecoration(hintText: "오답을 입력해주세요"),
-              ),
-              TextField(
-                controller: wrong3Controller, // 컨트롤러 설정
-                onChanged: (text) {
-                  localInputWrong3 = text;
-                },
-                decoration: const InputDecoration(hintText: "오답을 입력해주세요"),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      var id = widget.quizValue.id;
-                      await widget.updateData(
-                        id,
-                        localInputTitle,
-                        localInputContent,
-                        localInputCorrect,
-                        localInputWrong1,
-                        localInputWrong2,
-                        localInputWrong3,
-                      );
-                      // get
-                      // await widget.getData();
-                      var result = await widget.getData();
-                      var quizList = result.docs;
+          child: Container(
+            margin: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+            child: Column(
+              children: [
+                TextField(
+                  controller: titleController, // 컨트롤러 설정
+                  onChanged: (text) {
+                    localInputTitle = text;
+                  },
+                  decoration: const InputDecoration(hintText: "제목을 입력해주세요"),
+                ),
+                TextField(
+                  controller: contentController, // 컨트롤러 설정
+                  onChanged: (text) {
+                    localInputContent = text;
+                  },
+                  maxLines: 12,
+                  decoration: const InputDecoration(hintText: "내용을 입력해주세요"),
+                ),
+                TextField(
+                  controller: correctController, // 컨트롤러 설정
+                  onChanged: (text) {
+                    localInputCorrect = text;
+                  },
+                  decoration: const InputDecoration(hintText: "정답을 입력해주세요"),
+                ),
+                TextField(
+                  controller: wrong1Controller, // 컨트롤러 설정
+                  onChanged: (text) {
+                    localInputWrong1 = text;
+                  },
+                  decoration: const InputDecoration(hintText: "오답을 입력해주세요"),
+                ),
+                TextField(
+                  controller: wrong2Controller, // 컨트롤러 설정
+                  onChanged: (text) {
+                    localInputWrong2 = text;
+                  },
+                  decoration: const InputDecoration(hintText: "오답을 입력해주세요"),
+                ),
+                TextField(
+                  controller: wrong3Controller, // 컨트롤러 설정
+                  onChanged: (text) {
+                    localInputWrong3 = text;
+                  },
+                  decoration: const InputDecoration(hintText: "오답을 입력해주세요"),
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            var id = widget.quizValue.id;
+                            await widget.updateData(
+                              id,
+                              localInputTitle,
+                              localInputContent,
+                              localInputCorrect,
+                              localInputWrong1,
+                              localInputWrong2,
+                              localInputWrong3,
+                            );
+                            // get
+                            // await widget.getData();
+                            var result = await widget.getData();
+                            var quizList = result.docs;
 
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ManageQuiz(
-                              result: result,
-                              getData: widget.getData,
-                              quizList: quizList,
-                              listSize: result.size,
-                              updateData: widget.updateData,
-                              deleteData: widget.deleteData,
-                            ),
-                          ));
-                    },
-                    child: const Text("수 정"),
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ManageQuiz(
+                                    result: result,
+                                    getData: widget.getData,
+                                    quizList: quizList,
+                                    listSize: result.size,
+                                    updateData: widget.updateData,
+                                    deleteData: widget.deleteData,
+                                  ),
+                                ));
+                          },
+                          child: const Text(
+                            "수 정",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            var id = widget.quizValue.id;
+                            await widget.deleteData(id);
+
+                            var result = await widget.getData();
+                            var quizList = result.docs;
+
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ManageQuiz(
+                                    result: result,
+                                    getData: widget.getData,
+                                    quizList: quizList,
+                                    listSize: result.size,
+                                    updateData: widget.updateData,
+                                    deleteData: widget.deleteData,
+                                  ),
+                                ));
+                          },
+                          child: const Text(
+                            "삭 제",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      var id = widget.quizValue.id;
-                      await widget.deleteData(id);
-
-                      var result = await widget.getData();
-                      var quizList = result.docs;
-
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ManageQuiz(
-                              result: result,
-                              getData: widget.getData,
-                              quizList: quizList,
-                              listSize: result.size,
-                              updateData: widget.updateData,
-                              deleteData: widget.deleteData,
-                            ),
-                          ));
-                    },
-                    child: const Text("삭 제"),
-                  ),
-                ],
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
