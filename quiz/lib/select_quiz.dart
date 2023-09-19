@@ -153,7 +153,7 @@ class _SelectQuizState extends State<SelectQuiz> {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.fromLTRB(150, 0, 150, 0),
+                    padding: const EdgeInsets.fromLTRB(100, 0, 100, 0),
                     child: TextField(
                       onChanged: (text) {
                         try {
