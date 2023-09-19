@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:quiz/main_page.dart';
@@ -31,6 +31,13 @@ class _InsertQuizState extends State<InsertQuiz> {
   final wrong2Controller = TextEditingController();
   final wrong3Controller = TextEditingController();
 
+  final _focusNodeTitle = FocusNode();
+  final _focusNodeContent = FocusNode();
+  final _focusNodeCorrect = FocusNode();
+  final _focusNodeWrong1 = FocusNode();
+  final _focusNodeWrong2 = FocusNode();
+  final _focusNodeWrong3 = FocusNode();
+
   @override
   void dispose() {
     // 컨트롤러 해제
@@ -49,7 +56,22 @@ class _InsertQuizState extends State<InsertQuiz> {
       backgroundColor: Colors.lightGreenAccent,
       appBar: AppBar(actions: [
         IconButton(
-          onPressed: () {
+          onPressed: () async {
+            if (_focusNodeTitle.hasFocus ||
+                _focusNodeContent.hasFocus ||
+                _focusNodeCorrect.hasFocus ||
+                _focusNodeWrong1.hasFocus ||
+                _focusNodeWrong2.hasFocus ||
+                _focusNodeWrong3.hasFocus) {
+              _focusNodeTitle.unfocus();
+              _focusNodeContent.unfocus();
+              _focusNodeCorrect.unfocus();
+              _focusNodeWrong1.unfocus();
+              _focusNodeWrong2.unfocus();
+              _focusNodeWrong3.unfocus();
+              await Future.delayed(const Duration(milliseconds: 500));
+            }
+
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -67,6 +89,7 @@ class _InsertQuizState extends State<InsertQuiz> {
             child: Column(
               children: [
                 TextField(
+                  focusNode: _focusNodeTitle,
                   controller: titleController, // 컨트롤러 설정
                   onChanged: (text) {
                     localInputTitle = text;
@@ -74,6 +97,7 @@ class _InsertQuizState extends State<InsertQuiz> {
                   decoration: const InputDecoration(hintText: "제목을 입력해주세요"),
                 ),
                 TextField(
+                  focusNode: _focusNodeContent,
                   controller: contentController, // 컨트롤러 설정
                   onChanged: (text) {
                     localInputContent = text;
@@ -82,6 +106,7 @@ class _InsertQuizState extends State<InsertQuiz> {
                   decoration: const InputDecoration(hintText: "내용을 입력해주세요"),
                 ),
                 TextField(
+                  focusNode: _focusNodeCorrect,
                   controller: correctController, // 컨트롤러 설정
                   onChanged: (text) {
                     localInputCorrect = text;
@@ -89,6 +114,7 @@ class _InsertQuizState extends State<InsertQuiz> {
                   decoration: const InputDecoration(hintText: "정답을 입력해주세요"),
                 ),
                 TextField(
+                  focusNode: _focusNodeWrong1,
                   controller: wrong1Controller, // 컨트롤러 설정
                   onChanged: (text) {
                     localInputWrong1 = text;
@@ -96,6 +122,7 @@ class _InsertQuizState extends State<InsertQuiz> {
                   decoration: const InputDecoration(hintText: "오답을 입력해주세요"),
                 ),
                 TextField(
+                  focusNode: _focusNodeWrong2,
                   controller: wrong2Controller, // 컨트롤러 설정
                   onChanged: (text) {
                     localInputWrong2 = text;
@@ -103,6 +130,7 @@ class _InsertQuizState extends State<InsertQuiz> {
                   decoration: const InputDecoration(hintText: "오답을 입력해주세요"),
                 ),
                 TextField(
+                  focusNode: _focusNodeWrong3,
                   controller: wrong3Controller, // 컨트롤러 설정
                   onChanged: (text) {
                     localInputWrong3 = text;

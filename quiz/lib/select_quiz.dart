@@ -25,6 +25,8 @@ class _SelectQuizState extends State<SelectQuiz> {
   List<int> fillterQuizIndexList = [];
   List<Map<String, String>> fillterQuizList = [];
 
+  final FocusNode _focusNode = FocusNode();
+
   // 인덱스 배열 생성(성공)
   initDefaultIndexList() {
     for (int i = 0; i < widget.listSize; i++) {
@@ -89,7 +91,12 @@ class _SelectQuizState extends State<SelectQuiz> {
       backgroundColor: Colors.lightGreenAccent,
       appBar: AppBar(actions: [
         IconButton(
-            onPressed: () {
+            onPressed: () async {
+              if (_focusNode.hasFocus) {
+                _focusNode.unfocus();
+                await Future.delayed(const Duration(milliseconds: 500));
+              }
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -122,7 +129,6 @@ class _SelectQuizState extends State<SelectQuiz> {
                 Container(
                   padding: const EdgeInsets.fromLTRB(150, 0, 150, 0),
                   child: TextField(
-                    textAlign: TextAlign.center,
                     onChanged: (text) {
                       try {
                         inputData = int.parse(text);
@@ -130,15 +136,26 @@ class _SelectQuizState extends State<SelectQuiz> {
                         print("입력오류 : $e");
                       }
                     },
+                    textAlign: TextAlign.center,
+                    focusNode: _focusNode,
                   ),
                 ),
                 Container(
                   margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                   child: ElevatedButton(
                     onPressed: () async {
-                      if (widget.listSize < inputData || inputData == 0) return;
+                      if (widget.listSize < inputData || inputData == 0) {
+                        _focusNode.unfocus();
+                        inputData = 0;
+                        return;
+                      }
+
                       await initFillterIndexList(inputData);
                       await initFillterQuizList(inputData);
+
+                      _focusNode.unfocus();
+                      await Future.delayed(const Duration(milliseconds: 500));
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(

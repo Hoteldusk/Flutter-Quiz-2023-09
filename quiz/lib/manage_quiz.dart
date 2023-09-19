@@ -48,12 +48,12 @@ class _ManageQuizState extends State<ManageQuiz> {
         itemCount: widget.listSize,
         itemBuilder: (c, i) {
           return ListTile(
-            leading: const Icon(Icons.drag_indicator_sharp),
+            leading: const Icon(Icons.noise_control_off),
             title: Text(
               widget.quizList[i]["title"],
               style: const TextStyle(fontSize: 20),
             ),
-            trailing: ElevatedButton(
+            trailing: IconButton(
               onPressed: () {
                 Navigator.push(
                     context,
@@ -72,7 +72,7 @@ class _ManageQuizState extends State<ManageQuiz> {
                       ),
                     ));
               },
-              child: const Text("자세히"),
+              icon: const Icon(Icons.search),
             ),
           );
         },
