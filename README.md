@@ -17,8 +17,8 @@
 4. What do you want to use as your public directory? public
 5. Configure as a single-page app (rewrite all urls to /index.html)? Yes
 6. Set up automatic builds and deploys with GitHub? No
-7. `flutter build web`
-8. `firebase.json` 에서 `"public": "public"` 을 `"public": "build/web"` 으로 수정
+7. `firebase.json` 에서 `"public": "public"` 을 `"public": "build/web"` 으로 수정
+8. `flutter build web`
 9. `firebase deploy`
 
 ## apk 파일 생성
@@ -34,3 +34,5 @@ defaultConfig {
   multiDexEnabled true
 }
 ```
+### firebase hosting url
+- https://flutter-quiz-3e78b-66ac4.web.app/
