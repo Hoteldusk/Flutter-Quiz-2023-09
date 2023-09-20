@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, avoid_print
+// ignore_for_file: prefer_typing_uninitialized_variables, avoid_print, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:quiz/main_page.dart';
@@ -39,6 +39,28 @@ class _PlayQuizState extends State<PlayQuiz> {
     return selectValueList;
   }
 
+  void startAnimation() async {
+    for (int i = 0; i < 10; i++) {
+      await Future.delayed(const Duration(milliseconds: 20));
+      setState(() {
+        progressValue += 1.0 / (listLength * 10);
+      });
+    }
+  }
+
+  void waitAndlinkResult() async {
+    await Future.delayed(const Duration(milliseconds: 250));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ResultPage(
+          correctCount: correctCount,
+          wrongCount: wrongCount,
+        ),
+      ),
+    );
+  }
+
   void showResultDialog(bool isCorrect) {
     showDialog(
       context: context,
@@ -55,19 +77,10 @@ class _PlayQuizState extends State<PlayQuiz> {
                 } else if (!isCorrect) {
                   wrongCount++;
                 }
-                setState(() {
-                  progressValue += 1.0 / listLength;
-                }); //프로그래스 벨류 증가
+
+                startAnimation();
                 if (localList.length == 1) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ResultPage(
-                        correctCount: correctCount,
-                        wrongCount: wrongCount,
-                      ),
-                    ),
-                  );
+                  waitAndlinkResult();
                 } else {
                   setState(() {
                     localList.removeAt(0);
@@ -123,7 +136,6 @@ class _PlayQuizState extends State<PlayQuiz> {
               color: Colors.blue,
             )
           ]),
-      // body: Text(widget.playQuizList[0]["title"]),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -180,7 +192,6 @@ class _PlayQuizState extends State<PlayQuiz> {
                         minimumSize: const Size(
                             double.infinity, 50), // 버튼의 가로 크기를 화면 가로에 맞게 조절
                       ),
-                      // child: Text(localList[0]["correct"]),
                       child: Text(
                         selectValueList[0],
                         style: const TextStyle(fontSize: 20),
@@ -198,7 +209,6 @@ class _PlayQuizState extends State<PlayQuiz> {
                         minimumSize: const Size(
                             double.infinity, 50), // 버튼의 가로 크기를 화면 가로에 맞게 조절
                       ),
-                      // child: Text(localList[0]["wrong1"]),
                       child: Text(
                         selectValueList[1],
                         style: const TextStyle(fontSize: 20),
@@ -216,7 +226,6 @@ class _PlayQuizState extends State<PlayQuiz> {
                         minimumSize: const Size(
                             double.infinity, 50), // 버튼의 가로 크기를 화면 가로에 맞게 조절
                       ),
-                      // child: Text(localList[0]["wrong2"]),
                       child: Text(
                         selectValueList[2],
                         style: const TextStyle(fontSize: 20),
@@ -234,7 +243,6 @@ class _PlayQuizState extends State<PlayQuiz> {
                         minimumSize: const Size(
                             double.infinity, 50), // 버튼의 가로 크기를 화면 가로에 맞게 조절
                       ),
-                      // child: Text(localList[0]["wrong3"]),
                       child: Text(
                         selectValueList[3],
                         style: const TextStyle(fontSize: 20),
