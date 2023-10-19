@@ -12,7 +12,7 @@
 
 ## 파이어 베이스 배포
 1. `firebase init`
-2. Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys 선택
+2. `Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys` 선택
 3. `Use an exising project` 선택
 4. 파이어베이스에 만들어둔 프로젝트 선택
 5. What do you want to use as your public directory? public
